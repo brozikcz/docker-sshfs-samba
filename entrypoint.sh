@@ -7,6 +7,8 @@ cleanup() {
   echo "Cleanup done!"
 }
 
+supervisord -c /config/supervisord.conf
+
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]
 then
   # sync and unmount on shutdown
@@ -29,7 +31,7 @@ then
     -o uid="$UID"
     -o gid="$GID"
     -o port="$PORT"
-    "$@" /mount
+    "$@" /samba-share
   )
 
   if [[ -n "$SSHPASS" ]]
