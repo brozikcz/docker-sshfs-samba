@@ -1,13 +1,19 @@
-FROM alpine:latest
+FROM alpine:3.20.1
 
-RUN apk add --no-cache bash sshfs sshpass && \
-    ln -s /config /root/.ssh
+RUN apk add --no-cache bash sshfs sshpass samba supervisor
 
-# USER nobody
+RUN ln -s /config /root/.ssh
 
 COPY ./entrypoint.sh /entrypoint.sh
+COPY *.conf /config/
 
-VOLUME ["/mount", "/config"]
+RUN mkdir /samba-share
+
+RUN chmod -R 777 /samba-share
+
+VOLUME ["/config"]
+
+EXPOSE 139 445
 
 ENV UID=0 GID=0 PORT=22 IDENTITY_FILE=/config/id_ed25519 SSHPASS=
 
