@@ -1,4 +1,4 @@
-FROM alpine:3.20.1
+FROM alpine:3.20.2
 
 RUN apk add --no-cache bash sshfs sshpass samba supervisor
 
@@ -8,6 +8,8 @@ COPY ./entrypoint.sh /entrypoint.sh
 COPY *.conf /config/
 
 RUN mkdir /samba-share
+
+RUN echo "user_allow_other" >> /etc/fuse.conf
 
 RUN chmod -R 777 /samba-share
 
