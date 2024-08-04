@@ -11,7 +11,7 @@ docker run -it --rm \
     --cap-add SYS_ADMIN \
     --device /dev/fuse \
     --name sshfs \
-    -v ~/.ssh/id_rsa:/config/id_rsa:ro \
+    -v ~/.ssh/id_rsa:/config/id_ed25519:ro \
     -p 139:139 \
     -p 445:445 \
     ghcr.io/brozikcz/sshfs-samba:latest \
@@ -33,7 +33,6 @@ docker run -d --rm \
     --cap-add SYS_ADMIN \
     --device /dev/fuse \
     --name sshfs \
-    -v ~/.ssh/id_rsa:/config/id_rsa:ro \
     -p 139:139 \
     -p 445:445 \
     -e SSHPASS=password \
